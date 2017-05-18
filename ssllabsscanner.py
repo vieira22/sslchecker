@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 
 import requests
 import time
@@ -6,7 +6,6 @@ import sys
 import logging
 
 API = 'https://api.ssllabs.com/api/v2/'
-
 
 def requestAPI(path, payload={}):
     '''This is a helper method that takes the path to the relevant
