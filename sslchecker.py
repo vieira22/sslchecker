@@ -1,10 +1,16 @@
 """
+#Author: Renato Vieira
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
+# GNU General Public License for more details. http://www.gnu.org/licenses/.
+
 Requirements:
 Python 3.4.0 - Python.org
 TLSFuzzer - https://github.com/tomato42/tlsfuzzer
 tlslite-ng - https://github.com/tomato42/tlslite-ng
 ECDSA - https://github.com/warner/python-ecdsa
-python3 sslchecker.py
 
 More information at:
 https://sslvulnerabilitychecker.com
