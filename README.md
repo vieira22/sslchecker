@@ -45,6 +45,15 @@ E.g.: c:\>Python sslchecker.py -h sslvulnerabilitychecker.com
 
 #### Results:
 
+Screnshot 1 - 
 
+![alt text](https://raw.githubusercontent.com/vieira22/sslchecker/master/Screenshots/pythonshot1.JPG)
 
+Screenshot 2 -
+
+![alt text](https://raw.githubusercontent.com/vieira22/sslchecker/master/Screenshots/pythonshot2.JPG)
+
+Screenshot 3 - 
+
+![alt text](https://raw.githubusercontent.com/vieira22/sslchecker/master/Screenshots/pythonshot3.JPG)
 
