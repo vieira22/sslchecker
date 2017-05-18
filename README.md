@@ -27,8 +27,12 @@ tlslite-ng - https://github.com/tomato42/tlslite-ng
 
 ECDSA - https://github.com/warner/python-ecdsa
 
-More information at:
+For Windows - PyCharm or another IDE
+
+For more about SSL Checker please visit:
 https://sslvulnerabilitychecker.com
+
+
 
 #### Instructions on Use:
 
