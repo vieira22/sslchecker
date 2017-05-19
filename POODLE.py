@@ -1,3 +1,22 @@
+"""
+#Author: Renato Vieira, Adley Silva, Claudio Carvalho 
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
+# GNU General Public License for more details. http://www.gnu.org/licenses/.
+
+Requirements:
+Python 3.4.0 - Python.org
+TLSFuzzer - https://github.com/tomato42/tlsfuzzer
+tlslite-ng - https://github.com/tomato42/tlslite-ng
+ECDSA - https://github.com/warner/python-ecdsa
+
+
+More information at:
+https://sslvulnerabilitychecker.com
+https://github.com/vieira22/SSLChecker
+"""
 
 import socket, ssl, pprint, sys, IPy, argparse, multiprocessing
 
@@ -14,30 +33,30 @@ def print_results(host, port, sslv3, tlsv1):
 
 def main(hostname):
 
-    args = {'host': [hostname], 'port': [443], 'network': None, 'tls': False, 'parallel': False}
+    arr = {'host': [hostname], 'port': [443], 'network': None, 'tls': False, 'parallel': False}
 
     tlsv1 = None
 
-    if args["host"] is not None:
-        for host in args["host"]:
-            for p in args["port"]:
+    if arr["host"] is not None:
+        for host in arr["host"]:
+            for p in arr["port"]:
                 sslv3 = check_sslv3(host, p)
-                if args["tls"] == True:
+                if arr["tls"] == True:
                     tlsv1 = 'null'
                 print_results(host, p, sslv3, tlsv1)
         return
 
     net = IPy.IPSet()
 
-    for network in args["network"]:
+    for network in arr["network"]:
         net.add(IPy.IP(network))
 
-    if args["parallel"]:
+    if arr["parallel"]:
         p = multiprocessing.Pool()
         q = multiprocessing.Queue()
 
         for ip in net:
-            q.put((check_net, ip, args["port"], args["tls"]))
+            q.put((check_net, ip, arr["port"], arr["tls"]))
 
         while True:
             items = q.get()
@@ -50,7 +69,7 @@ def main(hostname):
                 break
     else:
         for ip in net:
-            check_net(ip, args["port"], args["tls"])
+            check_net(ip, arr["port"], arr["tls"])
 
 def check_net(ip, ports, tls):
     for x in ip:

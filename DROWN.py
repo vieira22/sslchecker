@@ -1,8 +1,25 @@
+"""
+#Author: Renato Vieira, Adley Silva, Claudio Carvalho 
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
+# GNU General Public License for more details. http://www.gnu.org/licenses/.
+
+Requirements:
+Python 3.4.0 - Python.org
+TLSFuzzer - https://github.com/tomato42/tlsfuzzer
+tlslite-ng - https://github.com/tomato42/tlslite-ng
+ECDSA - https://github.com/warner/python-ecdsa
+
+More information at:
+https://sslvulnerabilitychecker.com
+https://github.com/vieira22/SSLChecker
+"""
 
 from __future__ import print_function
 import traceback
 import sys
-import getopt
 
 from tlsfuzzer.runner import Runner
 from tlsfuzzer.messages import Connect, ClientHelloGenerator, \
@@ -12,7 +29,6 @@ from tlsfuzzer.expect import ExpectAlert, ExpectClose, ExpectServerHello2, \
 
 from tlslite.constants import CipherSuite, AlertLevel, \
         ExtensionType, SSL2ErrorDescription
-
 
 def main(host):
     """Test if the server supports some of the SSLv2 ciphers"""
@@ -27,15 +43,13 @@ def main(host):
             }.items():
         for cipher_id, cipher_name in {
                 CipherSuite.SSL_CK_DES_192_EDE3_CBC_WITH_MD5:"DES-CBC3-MD5",
+                CipherSuite.SSL_CK_RC2_128_CBC_WITH_MD5: "RC2-CBC-MD5",
                 CipherSuite.SSL_CK_RC4_128_WITH_MD5:"RC4-MD5",
-                CipherSuite.SSL_CK_RC4_128_EXPORT40_WITH_MD5:"EXP-RC4-MD5",
-                CipherSuite.SSL_CK_RC2_128_CBC_WITH_MD5:"RC2-CBC-MD5",
-                CipherSuite.SSL_CK_RC2_128_CBC_EXPORT40_WITH_MD5:
-                    "EXP-RC2-CBC-MD5",
+                CipherSuite.SSL_CK_RC2_128_CBC_EXPORT40_WITH_MD5:"EXP-RC2-CBC-MD5",
                 CipherSuite.SSL_CK_IDEA_128_CBC_WITH_MD5:"IDEA-CBC-MD5",
+                CipherSuite.SSL_CK_RC4_128_EXPORT40_WITH_MD5: "EXP-RC4-MD5",
                 CipherSuite.SSL_CK_DES_64_CBC_WITH_MD5:"DES-CBC-MD5"
                 }.items():
-            # instruct RecordLayer to use SSLv2 record layer protocol (0, 2)
             conversation = Connect(host, port, version=(0, 2))
             node = conversation
             ciphers = [CipherSuite.SSL_CK_DES_192_EDE3_CBC_WITH_MD5,
@@ -98,9 +112,9 @@ def main(host):
             bad+=1
 
 
-    print("Test end")
-    print("successful: {0}".format(good))
-    print("failed: {0}".format(bad))
+    print("End of the Test")
+    print("Successful: {0}".format(good))
+    print("Failed: {0}".format(bad))
 
     if bad > 0:
         sys.exit(1)

