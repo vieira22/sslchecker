@@ -1,26 +1,15 @@
 """
-#Author: Renato Vieira, Adley Silva, Claudio Carvalho 
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
-# GNU General Public License for more details. http://www.gnu.org/licenses/.
-
-Requirements:
-Python 3.4.0 - Python.org
-TLSFuzzer - https://github.com/tomato42/tlsfuzzer
-tlslite-ng - https://github.com/tomato42/tlslite-ng
-ECDSA - https://github.com/warner/python-ecdsa
+#Author: Renato Vieira
 
 
-More information at:
-https://sslvulnerabilitychecker.com
-https://github.com/vieira22/SSLChecker
+
 """
 
 
 import ssl
 import socket
+
+import FREAK
 import Heartbleed
 import POODLE
 import ssllabsscanner
@@ -115,7 +104,7 @@ def maincall(host):
 
 
 
-    # print_dict(get_ssl_details(hostname))  # Prints all SSL details as raw data
+    #print_dict(get_ssl_details(hostname))  # Prints all SSL details as raw data
     get_ssl_details(hostname)
 
     get_ssl_grade(hostname)
@@ -124,12 +113,7 @@ def maincall(host):
     print('')
     print('*********************************************************************')
     print('')
-    print('Heartbleed test')
-    print('#########################################')
-    Heartbleed.main(hostname)
-    print('')
-    print('*********************************************************************')
-    print('')
+
     print('POODLE test:')
     print('#########################################')
     POODLE.main(hostname)
@@ -142,17 +126,19 @@ def maincall(host):
     DROWN.main(hostname)
     print('#########################################')
     print('')
+    print('Heartbleed test')
+    print('#########################################')
+    Heartbleed.main(hostname)
     print('')
+    print('#########################################')
     print('')
-    print("Thanks for using SSL Vulnerability Checker tool.")
+    print('FREAK test')
+    FREAK.main(hostname)
     print('')
-    print("For more details on Attacks visit sslvulnerabilitychecker.com .")
+    print('#########################################')
+    print('*********************************************************************')
     print('')
-    print("Find the SSL Checker project on github.com/vieirar22/sslchecker .")
     print("")
-    print("Version 1.0 - 05/2017")
-    print("")
-
     print("")
 
 if __name__ == "__main__":
