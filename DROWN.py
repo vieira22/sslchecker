@@ -1,5 +1,5 @@
 """
-#Author: Renato Vieira, Adley Silva, Claudio Carvalho 
+#Author: Renato Vieira - Version 2.0 
 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
