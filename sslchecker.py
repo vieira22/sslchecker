@@ -1,8 +1,17 @@
 """
-#Author: Renato Vieira
-
-
-
+#Author: Renato Vieira - Version 2.0
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE  See the
+# GNU General Public License for more details. http://www.gnu.org/licenses/.
+Requirements:
+Python 3.4.0 - Python.org
+TLSFuzzer - https://github.com/tomato42/tlsfuzzer
+tlslite-ng - https://github.com/tomato42/tlslite-ng
+ECDSA - https://github.com/warner/python-ecdsa
+More information at:
+https://sslvulnerabilitychecker.com
+https://github.com/vieira22/SSLChecker
 """
 
 
@@ -72,7 +81,7 @@ def help_msg():
 def main():
     """Test if the server supports some of the SSLv2 ciphers"""
     conversations = {}
-    host = "sslvulnerabilitychecker.com"
+    host = "www.itb.ie"
     port = 4433
 
     argv = sys.argv[1:]
@@ -101,8 +110,6 @@ def maincall(host):
     print('#########################################')
     print('SSL details')
     print('#########################################')
-
-
 
     #print_dict(get_ssl_details(hostname))  # Prints all SSL details as raw data
     get_ssl_details(hostname)
@@ -139,6 +146,14 @@ def maincall(host):
     print('*********************************************************************')
     print('')
     print("")
+    print("Thanks for using TLS Vulnerability Checker tool.")
+    print('')
+    print("For more details on Attacks visit sslvulnerabilitychecker.com .")
+    print('')
+    print("Find the SSL Checker project on github.com/vieirar22/sslchecker .")
+    print("")
+    print("Version 2.0 - 05/2018")
+
     print("")
 
 if __name__ == "__main__":
