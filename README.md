@@ -1,7 +1,7 @@
-# SSL Vulnerability Checker
-SSL Vulnerability Checker
+# TLS / SSL Vulnerability Checker
+TLS / SSL Vulnerability Checker
 
-SSL Vulnerability Checker is a project developed as Python scripts to return vulnerabilities on the attacks below:
+TLS /SSL Vulnerability Checker is a project developed as Python scripts to return vulnerabilities on the attacks below:
 
 #### POODLE  ####
 
